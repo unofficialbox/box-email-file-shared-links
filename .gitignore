@@ -1,0 +1,7 @@
+.project
+.settings
+salesforce.schema
+Referenced Packages
+.sf
+.sfdx
+.DS_Store

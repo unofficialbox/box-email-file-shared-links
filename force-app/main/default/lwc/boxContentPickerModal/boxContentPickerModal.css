@@ -1,0 +1,10 @@
+.boxElementsCard {
+    height: 60vh;
+    width: 100%;
+    display: flex;
+}
+
+.iframe {
+    height: 100%;
+    width: 100%;
+} 

@@ -1,0 +1,7 @@
+<template>
+    <lightning-quick-action-panel header="Select Box Files" id="">
+        <template lwc:if={isPickerOpen}>
+            <c-box-content-picker-modal record-id={recordId}></c-box-content-picker-modal>
+        </template>
+    </lightning-quick-action-panel>
+</template>

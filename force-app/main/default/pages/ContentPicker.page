@@ -1,0 +1,56 @@
+<apex:page lightningStylesheets="true" controller="BoxElementsController">
+    <apex:slds />
+    <apex:includeScript value="{!URLFOR('https://cdn01.boxcdn.net/platform/elements/23.1.0/en-US/picker.js')}" />
+    <apex:stylesheet value="{!URLFOR('https://cdn01.boxcdn.net/platform/elements/23.1.0/en-US/picker.css')}" />
+
+    <div class="picker"></div>
+    <script>
+        const folderId = '{!$CurrentPage.parameters.folderId}';
+        const downscopedToken = '{!$CurrentPage.parameters.downscopedToken}';
+        
+        // Instantiate Content Picker
+        const logoUrl = "{!URLFOR($Resource.logos, '/box.png')}";
+        const picker = new Box.ContentPicker();
+        picker.show(folderId, downscopedToken, {
+            container: '.picker',
+            logoUrl: logoUrl,
+            autoFocus: true,
+            canUpload: true,
+            chooseButtonLabel: 'Select',
+            clearSelectedItemsOnNavigation: true
+        });
+
+        // Listen to the choose event and populate the files JSON object
+        picker.on('choose', (data) => { 
+            var files = [];
+            for(var i=0;i<data.length;i++){
+                files.push({
+                            id: data[i].id,
+                            name: data[i].name,
+                            shared_link: data[i].shared_link.url,
+                            success: true
+                });
+            }
+            // Dispatch files_selected event to parent LWC
+            window.parent.postMessage({operation : 'files_selected', files : files}, '*');
+            
+        });
+
+        // Listen to the cancel event
+        picker.on('cancel', (data) => { 
+            // Dispatch cancel event to parent LWC
+            window.parent.postMessage({operation : 'cancel'}, '*');
+            
+        });
+    </script>
+    <body>
+        <style>
+            .picker {
+            height: 99.5vh;
+            }
+            .bcp-footer {
+                display: flex !important;
+            }
+        </style>
+    </body>
+</apex:page>

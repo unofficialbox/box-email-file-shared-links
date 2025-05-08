@@ -1,0 +1,12 @@
+<template>
+    <div class="boxElementsCard">
+        <template lwc:if={isLoading}>
+            <lightning-spinner alternative-text="Loading" size="medium" variant="brand"></lightning-spinner>
+        </template>
+        <template lwc:else>
+            <iframe src={buieURL} height='100%' width='100%' frameborder="0" allowfullscreen webkitallowfullscreen
+                msallowfullscreen>
+            </iframe>
+        </template>
+    </div>
+</template>
